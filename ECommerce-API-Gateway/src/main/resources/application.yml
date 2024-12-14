@@ -1,0 +1,30 @@
+server:
+  port: 9191
+
+spring:
+  application:
+    name: ECommerce-API-GATEWAY
+
+
+  cloud:
+    gateway:
+      routes:
+      - id: CUSTOMER-SERVICE
+        uri: lb://CUSTOMER-SERVICE
+        predicates:
+         - Path=/customer/**
+        
+      - id: ORDER-SERVICE
+        uri: lb://ORDER-SERVICE
+        predicates:
+         - Path=/orders/**
+        
+      - id: PRODUCT-SERVICE
+        uri: lb://PRODUCT-SERVICE
+        predicates:
+        - Path=/product/**
+        
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
